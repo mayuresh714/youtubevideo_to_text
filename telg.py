@@ -32,6 +32,7 @@ class telegram():
             for i in range(20,len(pm),1000):
                 update.message.reply_text(pm[strt:i])
                 strt = i
+            update.message.reply_text(pm[strt:])
 
     def error(self,update, context):
         logger.warning('Update "%s" caused error "%s"', update, context.error)
