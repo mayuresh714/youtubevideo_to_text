@@ -1,4 +1,4 @@
-import telegrambot as tb
+ 
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
@@ -14,11 +14,11 @@ class telegram():
         self.TOKEN = TOKEN
         self.heroku_app_name = heroku_app_name
 
-    def start(update, context):
+    def start(self,update, context):
         """Send a message when the command /start is issued."""
         update.message.reply_text(start_msg)
 
-    def help(update, context):
+    def help(self,update, context):
         """Send a message when the command /help is issued."""
         update.message.reply_text('Help!')
 
@@ -48,30 +48,30 @@ class telegram():
         """Log Errors caused by Updates."""
         logger.warning('Update "%s" caused error "%s"', update, context.error)
 
-    def main():
+    def main(self):
         """Start the bot."""
         # Create the Updater and pass it your bot's token.
         # Make sure to set use_context=True to use the new context based callbacks
         # Post version 12 this will no longer be necessary
-        updater = Updater(TOKEN, use_context=True)
+        updater = Updater(self.TOKEN, use_context=True)
 
         # Get the dispatcher to register handlers
         dp = updater.dispatcher
 
         # on different commands - answer in Telegram
-        dp.add_handler(CommandHandler("start", start))
-        dp.add_handler(CommandHandler("help", help))
+        dp.add_handler(CommandHandler("start", self.start))
+        dp.add_handler(CommandHandler("help", self.help))
 
         # on noncommand i.e message - echo the message on Telegram
-        dp.add_handler(MessageHandler(Filters.text, response))
+        dp.add_handler(MessageHandler(Filters.text, self.response))
 
         # log all errors
-        dp.add_error_handler(error)
+        dp.add_error_handler(self.error)
 
         # Start the Bot
         updater.start_webhook(listen="0.0.0.0",
                             port=int(PORT),
-                            url_path=TOKEN)
+                            url_path=self.TOKEN)
         updater.bot.setWebhook('https://{}.herokuapp.com/'.format(self.heroku_app_name) + self.TOKEN)
 
         # Run the bot until you press Ctrl-C or the process receives SIGINT,
