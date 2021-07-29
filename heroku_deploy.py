@@ -10,13 +10,14 @@ logger = logging.getLogger(__name__)
 
  
 class telegram():
-    def __init__(self,TOKEN,heroku_app_name):
+    def __init__(self,TOKEN,heroku_app_name,start_msg):
         self.TOKEN = TOKEN
         self.heroku_app_name = heroku_app_name
+        self.start_msg = start_msg
 
     def start(update, context):
         """Send a message when the command /start is issued."""
-        update.message.reply_text(start_msg)
+        update.message.reply_text(self.start_msg)
 
     def help(update, context):
         """Send a message when the command /help is issued."""
