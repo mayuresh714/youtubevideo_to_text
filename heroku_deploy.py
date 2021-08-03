@@ -49,7 +49,7 @@ class telegram():
         logger.warning('Update "%s" caused error "%s"', update, context.error)
 
  
-     def error(self,update, context):
+    def error(self,update, context):
         """Log Errors caused by Updates."""
         logger.warning('Update "%s" caused error "%s"', update, context.error)
 
