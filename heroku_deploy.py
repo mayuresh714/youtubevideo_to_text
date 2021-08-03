@@ -48,6 +48,11 @@ class telegram():
         """Log Errors caused by Updates."""
         logger.warning('Update "%s" caused error "%s"', update, context.error)
 
+ 
+     def error(self,update, context):
+        """Log Errors caused by Updates."""
+        logger.warning('Update "%s" caused error "%s"', update, context.error)
+
     def main(self):
         """Start the bot."""
         # Create the Updater and pass it your bot's token.
@@ -80,18 +85,4 @@ class telegram():
         updater.idle()
 
  
-        # log all errors
-        dp.add_error_handler(error)
-
-        # Start the Bot
-        updater.start_webhook(listen="0.0.0.0",
-                            port=int(PORT),
-                            url_path=TOKEN)
-        updater.bot.setWebhook('https://{}.herokuapp.com/'.format(self.heroku_app_name) + self.TOKEN)
-
-        # Run the bot until you press Ctrl-C or the process receives SIGINT,
-        # SIGTERM or SIGABRT. This should be used most of the time, since
-        # start_polling() is non-blocking and will stop the bot gracefully.
-        updater.idle()
-
  
